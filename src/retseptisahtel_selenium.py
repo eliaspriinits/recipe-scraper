@@ -14,7 +14,7 @@ def load_and_parse_page(page_number):
         driver.get(f"https://retseptisahtel.ee/?s={term}")
     else:
         driver.get(f"https://retseptisahtel.ee/page/{page_number}/?s={term}")
-    time.sleep(1)  # Wait for the new content to load (adjust as necessary)
+    time.sleep(0.5)  # Wait for the new content to load (adjust as necessary)
     page_source = driver.page_source
     return BeautifulSoup(page_source, 'html.parser')
 
@@ -24,7 +24,7 @@ pagination = soup.find("span", class_="pages")  # last part is the count of page
 if pagination:
     total_pages = int(pagination.get_text().split()[-1])
 else:
-    total_pages = 1  # Default to 1 if pagination not found
+    total_pages = 1  # default to 1 if pagination not found
 
 for page_number in range(1, total_pages + 1):
     if page_number < total_pages:
