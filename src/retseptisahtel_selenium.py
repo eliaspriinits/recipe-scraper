@@ -35,6 +35,8 @@ for page_number in range(1, total_pages + 1):
 
 driver.quit()
 
+number_of_recipes = len(recipes)
+print(number_of_recipes)
 # Process and print the recipes
 for recipe in recipes:
     title = recipe.get_text()  # Adjust the selector as needed

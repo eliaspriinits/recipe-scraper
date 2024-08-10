@@ -36,7 +36,7 @@ def parse_recipes(soup):
     return []
 
 
-def populate_recipes_nn():
+def populate_recipes_nn(recipes):
     soup = load_and_parse_page(1)
     recipes.extend(parse_recipes(soup))
 
