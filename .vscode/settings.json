@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "C:\\Users\\Arvuti\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "python.formatting.autopep8Path": "autopep8",
+    "python.formatting.provider": "autopep8",
+    "python.analysis.extraPaths": [
+        "C:\\Users\\Arvuti\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages"
+    ]
+}
