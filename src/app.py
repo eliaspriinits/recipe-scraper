@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from perenaine import populate_recipes_pn
 from tuuliretseptid import populate_recipes_tr
-from retseprisahtel_requests import populate_recipes_rs
+from retseptisahtel import populate_recipes_rs
 from concurrent.futures import ThreadPoolExecutor
 
 app = Flask(__name__)

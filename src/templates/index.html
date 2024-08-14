@@ -14,9 +14,12 @@ body {
     overflow-x: hidden;
 }
 
+h1, h2, h3 {
+    color: #31304d;
+}
+
 h1 {
     font-size: 40px !important;
-    color: #31304d;
     font: inherit;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     width: 50%;
@@ -24,8 +27,8 @@ h1 {
     text-align: center;
     margin-top: 7%;
 }
-h2{
-    color:#31304d
+h2 {
+    text-align: center;
 }
 
 form {
@@ -49,7 +52,7 @@ form input[type="text"] {
     outline: none;
     
 }
-a{
+a {
     color: #fff;
     text-decoration: none;
 }
@@ -58,31 +61,9 @@ a{
     display: none;
 }
 
-form{
+form {
     position: relative;
     padding-bottom: 4px;
-}
-#loading-spinner {
-    display: none; /* Initially hidden */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-}
-
-.spinner {
-    border: 8px solid #f3f3f3; /* Light gray */
-    border-top: 8px solid #31304d; /* Darker gray or any other color */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
     </style>
 </head>
@@ -97,17 +78,9 @@ form{
     <form action="/results" method="post">
         <input type="text" id="term" name="term" placeholder="Otsi koostisosasid..." required>
         <h3>Kirjutage otsingulahtrisse koositsosad ja eraldage tühikutega</h3>
-
     <div id="loading-spinner">
         <div class="spinner"></div>
     </div>
-            
-        <script>
-            document.querySelector('submit').addEventListener('submit', function(event) {
-            // Show the loading spinner
-            document.getElementById('loading-spinner').style.display = 'block';
-        });
-        </script>    
 </body>
 
 </html>

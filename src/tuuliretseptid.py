@@ -14,7 +14,7 @@ def load_and_parse_page(page_number, term):
     return BeautifulSoup(response.text, 'html.parser')
 
 
-def get_pages_tr(term):
+def get_pages(term):
     soup = load_and_parse_page(1, term)
     pagination_links = soup.find_all("a", class_="page-numbers")
     if pagination_links:
@@ -28,7 +28,7 @@ def fetch_recipes_from_current_site(page_number, term):
 
 
 def populate_recipes_tr(recipes, term):
-    total_pages = get_pages_tr(term)
+    total_pages = get_pages(term)
     pool = ThreadPoolExecutor(10)
     different_pages = [pool.submit(fetch_recipes_from_current_site, page_number, term) for page_number in range(1, total_pages + 1)]
     for page in different_pages:
