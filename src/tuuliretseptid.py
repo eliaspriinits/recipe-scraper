@@ -14,7 +14,6 @@ def load_and_parse_page(page_number, term):
     return BeautifulSoup(response.text, 'html.parser')
 
 
-# Parse the initial page to determine the number of pages
 def get_pages_tr(term):
     soup = load_and_parse_page(1, term)
     pagination_links = soup.find_all("a", class_="page-numbers")
@@ -22,7 +21,7 @@ def get_pages_tr(term):
         page_numbers = [int(link.get_text()) for link in pagination_links if link.get_text().isdigit()]
         return max(page_numbers) if page_numbers else 1
     else:
-        return 1  # Default to 1 if pagination not found
+        return 1  # default to 1 if pagination not found
 
 def fetch_recipes_from_current_site(page_number, term):
     return load_and_parse_page(page_number, term).find_all("h2", class_="cmsmasters_archive_item_title entry-title")

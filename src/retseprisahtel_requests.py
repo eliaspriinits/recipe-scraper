@@ -13,20 +13,18 @@ def load_and_parse_page(page_number, term):
     return BeautifulSoup(response.text, 'html.parser')
 
 
-# Parse the initial page to determine the number of pages
 def get_pages_rs(term):
     soup = load_and_parse_page(1, term)
     pagination = soup.find("span", class_="pages")
     if pagination:
         return int(pagination.get_text().split()[-1])
     else:
-        return 1  # Default to 1 if pagination not found
+        return 1  # default to 1 if pagination not found
     
 def fetch_recipes_from_current_site(page_number, term):
     return load_and_parse_page(page_number, term).find_all("h3", class_="entry-title")
 
 
-# Iterate over all pages
 def populate_recipes_rs(recipes, term):
     total_pages = get_pages_rs(term)
     pool = ThreadPoolExecutor(10)
