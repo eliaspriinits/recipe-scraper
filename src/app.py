@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from perenaine import populate_recipes_pn
 from tuuliretseptid import populate_recipes_tr
 from retseprisahtel_requests import populate_recipes_rs
+from concurrent.futures import ThreadPoolExecutor
 
 app = Flask(__name__)
 
@@ -13,13 +14,21 @@ def home():
 # route to handle the form submission and display results
 @app.route('/results', methods=['POST'])
 def results():
-    term = request.form['term']
+    term = request.form.get("term", "").lower()
+    term = term.replace(" ", "+")
     recipes = []
 
+    print(term)
     # populate recipes from different sources
-    populate_recipes_tr(recipes, term)
-    populate_recipes_rs(recipes, term)
-    populate_recipes_pn(recipes, term)
+    pool = ThreadPoolExecutor(3)
+    tasks = [
+        pool.submit(populate_recipes_tr, recipes, term),
+        pool.submit(populate_recipes_rs, recipes, term),
+        pool.submit(populate_recipes_pn, recipes, term)
+    ]
+    for task in tasks:
+        print("task done")
+        task.result()
 
     # pass the results to the template for rendering
     return render_template('results.html', recipes=recipes)

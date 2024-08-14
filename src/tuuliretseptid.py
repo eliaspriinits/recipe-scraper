@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from concurrent.futures import ThreadPoolExecutor
 
 
 def load_and_parse_page(page_number, term):
@@ -23,13 +24,16 @@ def get_pages_tr(term):
     else:
         return 1  # Default to 1 if pagination not found
 
+def fetch_recipes_from_current_site(page_number, term):
+    return load_and_parse_page(page_number, term).find_all("h2", class_="cmsmasters_archive_item_title entry-title")
+
 
 def populate_recipes_tr(recipes, term):
     total_pages = get_pages_tr(term)
-    for page_number in range(1, total_pages + 1):
-        soup = load_and_parse_page(page_number, term)
-        current_recipes = soup.find_all("h2", class_="cmsmasters_archive_item_title entry-title")
-        recipes.extend(current_recipes)
+    pool = ThreadPoolExecutor(10)
+    different_pages = [pool.submit(fetch_recipes_from_current_site, page_number, term) for page_number in range(1, total_pages + 1)]
+    for page in different_pages:
+        recipes.extend(page.result())
 
 
 def tuuliretseptid(recipes):

@@ -57,7 +57,7 @@ def populate_recipes_nn(recipes):
         except Exception as e:
             print(f"Error loading more recipes: {e}")
             break
-
+"""
 # Process and print the recipes
 for recipe in recipes:
     title = recipe.find("div", class_="intro").get_text().lstrip()
@@ -65,3 +65,4 @@ for recipe in recipes:
     print(f'Title: {title}')
     print(f'Link: https://nami-nami.ee{link}')
     print('---')
+"""

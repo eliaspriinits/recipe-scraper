@@ -3,8 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Results</title>
+    <title>Recipe Search</title>
     <style>
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+    label {
+            display: none;
+        }
+        
+        .collapsed-ingredients label:not(:first-child) {
+        display: none;
+    }
+
+    .collapse-checkbox:checked + label {
+    display: block;
+}
+
+        .recipe-ingredients.collapsed span:not(:first-child) {
+            display: none;
+        }
+
+
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background: #b6bbc4;
@@ -54,6 +81,20 @@ label {
     cursor: pointer;
 }
 
+
+input[type="checkbox"] + label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #5872FF; /* komplementaarne värv */
+    background-color: #fff;
+    border-radius: 3px;
+    visibility: visible; /* checkboxid nähtavaks */
+}
+
 input[type="checkbox"]:checked + label::before {
     background-color: #5872FF; 
     border-color: #5872FF; 
@@ -63,34 +104,28 @@ a{
     color: #fff;
     text-decoration: none;
 }
-ul{
-    list-style-type: square;
-    list-style-position: outside;
-    background: #3399ff;
-    padding: 20px;
-    width: 50%;
-    margin: auto;
+
+.checkbox {
+    display: none;
 }
-li{
-    background: #cce5ff;
-    color: darkblue;
-    margin: 5px;
-    padding: 2px;
+
+form{
+    position: relative;
+    padding-bottom: 48px;
 }
-li a {
-    font-size: medium;
-    color: #31304d;
+
+#hidden{
+    display: none;
 }
+
     </style>
 </head>
 <body>
-    <h1>{{ recipes|length }} retsepti leitud seotud otsinguga.</h1>
-    <ul>
-        {% for recipe in recipes %}
-        <li>
-            <a href="{{ recipe.find('a')['href'] }}">{{ recipe.get_text().strip() }}</a>
-        </li>
-        {% endfor %}
-    </ul>
+    <h1>Search for Recipes</h1>
+    <form action="/results" method="post">
+        <label for="term">Search Term:</label>
+        <input type="text" id="term" name="term" required>
+        <button type="submit">Search</button>
+    </form>
 </body>
 </html>

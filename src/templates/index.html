@@ -1,16 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Search</title>
+    <script src="https://kit.fontawesome.com/b4903e653c.js" crossorigin="anonymous"></script>
+    <title>Koostisainete otsing</title>
+    <style>
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background: #b6bbc4;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-size: 40px !important;
+    color: #31304d;
+    font: inherit;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+    margin-top: 7%;
+}
+h2{
+    color:#31304d
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+    margin-left: 20%;
+    margin-right: 20%;
+
+}
+
+form input[type="text"] {
+    width: 94%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    
+}
+a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.checkbox {
+    display: none;
+}
+
+form{
+    position: relative;
+    padding-bottom: 4px;
+}
+#loading-spinner {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+.spinner {
+    border: 8px solid #f3f3f3; /* Light gray */
+    border-top: 8px solid #31304d; /* Darker gray or any other color */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+    </style>
 </head>
 <body>
-    <h1>Search for Recipes</h1>
+    <h1>
+        <span>Koositisosade</span>
+        <span>osting</span>
+    </h1>
+    <h2>Teil on võimalik otsida retsepte koositisosade järgi, mis Teil juba olemas on, retseptid on võetud:
+        perenaine.ee, retseptisahtel.ee ja tuuliretseptid.ee.
+    </h2>
     <form action="/results" method="post">
-        <label for="term">Search Term:</label>
-        <input type="text" id="term" name="term" required>
-        <button type="submit">Search</button>
-    </form>
+        <input type="text" id="term" name="term" placeholder="Otsi koostisosasid..." required>
+        <h3>Kirjutage otsingulahtrisse koositsosad ja eraldage tühikutega</h3>
+
+    <div id="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+            
+        <script>
+            document.querySelector('submit').addEventListener('submit', function(event) {
+            // Show the loading spinner
+            document.getElementById('loading-spinner').style.display = 'block';
+        });
+        </script>    
 </body>
+
 </html>
